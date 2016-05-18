@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React Tutorial</title>
+    <title>Sudi's First React Tutorial</title>
     <!-- Not present in the tutorial. Just for basic styling. -->
     <link rel="stylesheet" href="css/base.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
@@ -49,13 +49,18 @@
       });
 
       var Comment = React.createClass({
+        rawMarkup: function() {
+            var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
+            return { __html: rawMarkup };
+        },
+
         render: function() {
             return (
                 <div className="comment">
                     <h2 className="commentAuthor">
                         {this.props.author}
                     </h2>
-                    {marked(this.props.children.toString())}
+                    <span dangerouslySetInnerHTML={this.rawMarkup()} />
                 </div>
             );
         }
